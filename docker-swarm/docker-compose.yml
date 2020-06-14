@@ -14,8 +14,7 @@ services:
 
     drupal:
     # this Dockerfile needs at least drupal:8.8.2 to work with postgres:12
-        image: custom-drupal
-        build: .
+        image: drupal
         ports:
             - "8080:80"
         volumes:
