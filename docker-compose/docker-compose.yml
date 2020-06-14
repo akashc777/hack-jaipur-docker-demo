@@ -2,7 +2,9 @@ version: '2'
 
 services:
   proxy:
-    image: nginx
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
     ports:
       - '80:80'
   web:
