@@ -1,0 +1,39 @@
+version: '2'
+
+services:
+    viz:
+        image: dockersamples/visualizer
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock"
+        ports:
+            - "8081:8080"
+        deploy:
+            placement:
+                constraints:
+                    - node.role == manager
+
+    drupal:
+    # this Dockerfile needs at least drupal:8.8.2 to work with postgres:12
+    image: custom-drupal
+    build: .
+    ports:
+        - "8080:80"
+    volumes:
+        - drupal-modules:/var/www/html/modules
+        - drupal-profiles:/var/www/html/profiles       
+        - drupal-sites:/var/www/html/sites      
+        - drupal-themes:/var/www/html/themes
+
+    postgres:
+    image: postgres:12.1
+    environment:
+        - POSTGRES_PASSWORD=mypasswd
+    volumes:
+        - drupal-data:/var/lib/postgresql/data
+
+volumes:
+  drupal-data:
+  drupal-modules:
+  drupal-profiles:
+  drupal-sites:
+  drupal-themes:
