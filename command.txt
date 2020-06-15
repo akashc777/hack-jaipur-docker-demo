@@ -1,0 +1,47 @@
+git clone https://github.com/akashc777/hack-jaipur-docker-demo
+
+
+docker container run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=True mysql
+docker container run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=True -v mysql-db:/var/lib/mysql mysql
+docker container rm -f mysql 
+docker volume ls
+docker volume rm mysql-db
+
+docker volume inspect 
+docker container inspect mysql
+
+docker container run --name nginx -p 81:80 -d nginx
+docker container rm -f nginx
+
+
+
+docker container stats
+
+
+docker image build -t new_nginx .
+docker container run --name new_nginx  -p 81:80 -d new_nginx
+docker container rm -f new_nginx
+docker pull ubuntu
+docker image ls
+docker image history nginx
+
+
+docker-compose -f docker-compose.yml -d up
+
+docker network ls
+
+docker swarm init
+
+docker node ls
+
+docker service create --name nginx -p 81:80 nginx
+
+docker service update nginx --replicas 5
+
+docker service rm nginx
+
+docker stack deploy -c docker-compose.yml drupal
+
+docker service ls
+
+docker service update drupal_postgres --replicas 5
